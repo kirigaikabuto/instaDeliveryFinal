@@ -1,0 +1,189 @@
+{%extends 'Lallog/base.html'%}
+{%block title%}
+Главная
+{%endblock%}
+{%block content%}
+<div class="header-content">
+<div class="text">
+      <p class="p-4 text-black">Доставка день в день от 800 тенге</p>
+      <h1 class="p-3 text-white">Курьерская служба</h1>
+</div>
+
+<button class="button_one myLinkModal laptop">Написать нам</button>
+<div class="knopka">
+      <a href="https://wa.me/77753913031?text=Я%20заинтересован%20в%20услугах%20вашей%20фирмы" >
+        <button class="moblie">Написать нам</button>
+        
+       
+      </a>
+
+       
+</div>
+</div>
+
+
+ <div class="KONTENT">
+    <div class="KONTENT1">
+    <p class="p1">Чем мы занимаемся</p>
+    <h2>InstaDelivery.kz — это революция на рынке срочной курьерской доставки</h2>
+    <div class="p2">
+      <p class="p2"> Оформить заказ на курьерскую или грузовую доставку через калькулятор</p>
+    </div>
+
+    
+    
+    <div class="KONTENT2">
+      <div class="KONTENT2_1">
+        <div class="KONTENT2_1_1">
+          <img src="Skuter.png" alt="">
+          <div class="gradient">
+            <div class="inner">
+              
+              <p>Доставка на мопедах</p>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="KONTENT2_2">
+        <div class="KONTENT2_1_1_2">
+          <img src="pesh.png" alt="">
+          <div class="gradient">
+            <div class="inner">
+             
+              <p>Доставка пешим курьером</p>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    
+    <div class="KONTENT2_3">
+        <div class="KONTENT2_1_1">
+        
+          <div class="gradient">
+            <div class="inner">
+              
+              <p>Доставка автомобилем</p>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    
+  </div>
+  </div>
+  </div>
+
+
+
+  <div class="line">
+  <div class="line-boxes">
+    <div class="line-box ">
+      <a href="#">
+        <h3>180 мин </h3>
+      <p >Доставка за 3 часа или в удобное время </p>
+      </a>
+    </div>
+    <div class="line-box">
+      <a href="#">
+      <h3>100%</h3>
+      <p>100% компенсация утери</p>
+      </a>
+    </div>
+    <div class="line-box">
+      <a href="#">
+      <h3>99%</h3>
+      <p>Довольных клиентов</p>
+      </a>
+    </div>
+    <div class="line-box">
+      <a href="#">
+      <h3>2-4</h3>
+      <p>Доставка по РК</p>
+      </a>
+    </div>
+    <div class="line-box">
+      <a href="#">
+      <h3>7</h3>
+      <p>Работаем без выходных</p>
+      </a>
+    </div>
+  </div>
+</div>   
+
+<div class="kak_rabotaem">
+
+  <div class="shapka">
+  <h2>Как работает InstaDelivery.kz</h2>
+  <div class="bloki">
+  <div class="lev_blok">
+  <p>Мы работаем по революционной для курьерских услуг модели B2B2C — курьеры получают заказы, а отправители могут вызвать курьера через форму заказа на веб-сайте. Другими словами, услуги курьерской службы "InstaDelivery" заключаются в том, что мы соединяем заказчика и курьера, обеспечивая первым качественные услуги, а вторым — комфортную работу с поддержкой операторов колл-центра.</p>
+  <p>Покупатели вашего интернет-магазина или контрагенты все еще вынуждены ждать доставки по несколько дней? Вы не заметите тот день, когда приличная доля клиентов будет покупать у конкурента, который уже работает с нами.</p>
+  </div>
+  <div class="prav_block">
+  <p>Мы поможем покончить с этим уже сегодня. Сделайте пробную доставку. Для этого не нужно ни переговоров, ни бумажных договоров, ни утомительного обмена документами. Просто заполните форму и курьер приедет в течение 1 — 2 часов.</p>
+  <p>Но при этом мы не ограничиваем спектр курьерских услуг и без проблем можем купить и привезти товары и продукты из интернет-магазина, организовать доставку для интернет-магазина, кафе, супермаркета, ресторана или любого другого бизнеса.</p>
+  </div>
+  </div>
+  </div>
+
+
+</div>
+
+<footer>
+  <div id="site_name">
+  <span>Insta Delivery</span> 
+  </div>
+  <div id="clear"></div>
+  <div id="footer_menu">
+    <a href="" title=""></a>
+    <a href="" title=""></a>
+    <a href="" title=""></a>
+  </div>
+  <div id="rights">
+    <a href="">Наш адрес: Жамбыла 114б, 5 офис</a>
+  </div>
+  <div class="social"></div> 
+<div class="dno">
+  <div class="dno1_2">
+    <p>Наш инстаграм:</p> 
+  </div>
+  <div class="inst">
+    <ul>
+        
+    <li><a href="#"><i class= "fab fa-instagram fa-2x"></i></a></li>
+       
+    </ul>
+    </div>
+</div>
+</footer>
+
+
+
+{% if messages%}
+lol
+{% for message in messages%}
+<div class="alert alert-{{message.tags}}">
+{{message}}
+
+</div>
+{%endfor%}
+{%endif%}
+
+
+
+ 
+    
+{%endblock%}
+
+
+
+
+
+

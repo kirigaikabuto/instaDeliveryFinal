@@ -1,0 +1,10 @@
+{%extends 'adminapp/base.html'%} {%block title%} Admin Panel {%endblock%} {%block body%}
+<p>{{curier.user.username}}</p>
+<p>{{curier.balance}}</p>
+<form method="POST" action="{% url 'balance_add_form_action'%}">
+    {%csrf_token%}
+    <input type="hidden" name="id" value="{{curier.pk}}">
+    <input type="text" value="" name="balance">
+    <input type="submit" value="Add">
+</form>
+{%endblock%}

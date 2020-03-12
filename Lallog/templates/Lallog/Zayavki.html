@@ -1,0 +1,38 @@
+
+{%extends 'Lallog/index.html'%}
+
+
+
+<caption>Список Заказов</caption>
+<table border="1">
+   
+   <tr>
+    <th>Компания</th>
+    <th>Откуда</th>
+    <th>Контакты</th>
+    <th>Куда</th>
+    <th>Контакты</th>
+    <th>Тип товара</th>
+    <th>Вес</th>
+    <th>Взять с клиента сумму</th>
+    <th>Дата заявки</th>
+    <th>Время заявки</th>
+   </tr>
+   {%for i in posts%}
+   
+   <tr>
+    <td>{{i.author}}</td>
+    <td>{{i.otkuda}}</td>
+    <td>{{i.kontakt1}}</td> 
+    <td>{{i.kuda}}</td>
+    <td>{{i.kontakt2}}</td> 
+    <td><a href="{% url 'post_detail' id=i.pk %}">{{i.title}}</a></td>
+    <td>{{i.Ves}}</td>
+    <td>{{i.Price}}</td>
+    <td>{{i.created_date}}</td> 
+    <td>{{i.published_date}}</td> 
+    
+    
+   </tr>
+  {%endfor%}
+  </table>

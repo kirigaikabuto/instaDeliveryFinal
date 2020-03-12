@@ -1,0 +1,53 @@
+ {%extends 'curiers/base_curier.html' %} {%load static%} {%block title%} Личный кабиент Курьера 2{%endblock%} {%block content%}
+<style>
+
+</style>
+<a href="{% url 'edit'%}">Мой профиль</a>
+<p>Мой баланс: {{request.user.mycurier.balance}} Тенге</p>
+
+
+<h2>Новые заказы</h2>
+<table border="1" id="table_empty">
+    <thead>
+        <tr >
+            <th>Компания</th>
+            <th>Откуда</th>
+            <th>Куда</th>
+            <th>Вес</th>
+            <th>Стоимость доставки</th>
+            <th>Курьеру</th>
+            <th>Дата доставки</th>
+            <th>Доставить до</th>
+            <th>Действия</th>
+
+
+        </tr>
+    </thead>
+    {%for i in empty_orders%}
+
+    <tr>
+        <td data-label="Компания">{{i.client}}</td>
+        <td data-label="Откуда">{{i.from_address}}</td>
+        <td data-label="Куда">{{i.to}}</td>
+        <td data-label="Вес">{{i.ves}}кг</td>
+        <td data-label="Доставка">{{i.itog}}</td>
+        <td data-label="Курьеру">{{i.curier_money}}</td>
+
+
+        <td data-label="Дата">{{i.to_date}}</td>
+        <td data-label="Ограничения">{{i.to_date_until}}</td>
+
+        <td data-label="Действия" class="lol">
+
+            <a href="{% url 'curier_select' id=i.pk %}">Принять</a>
+        </td>
+
+    </tr>
+    {%endfor%}
+</table>
+
+
+
+</table>
+
+{%endblock content%}

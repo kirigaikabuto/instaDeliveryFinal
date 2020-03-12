@@ -1,0 +1,43 @@
+
+{%extends 'users/base.html'%}
+{%load static%}
+{%block title%} Личный кабиент {%endblock%}
+
+{%block content%}
+  
+
+<div class="lichka">
+<div class="lichka_prav">
+<caption>Список Текущих Заказов</caption>
+<table  border="1" id="table_private"  >
+   
+   <tr > 
+    <th>№</th>
+    <th>Компания</th>
+    <th>Откуда</th>
+    <th>Контакты</th>
+    <th>Куда</th>
+    <th>Контакты</th>
+    <th>Вес</th>
+    <th>Доставить</th>
+    <th>До</th>
+    <th>Доставка</th>
+    <th>Принять</th>
+    <th>Выплата</th>
+    <th>Статус</th>
+    <th>Курьер</th>
+    <th>Контакты курьера</th>
+    <th>WatsApp</th>
+     <th>Действие</th>
+   </tr>
+
+  </table>
+
+  </div>
+  </div>
+    
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script> 
+
+
+   <script src="{% static 'js/users.js' %}"></script>
+{%endblock content%}

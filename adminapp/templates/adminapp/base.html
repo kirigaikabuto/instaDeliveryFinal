@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {%block title%} {%endblock%}
+    </title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="{%url 'curiers'%}">Курьеры</a></li>
+        <li><a href="{%url 'orders_all'%}">Заказы</a></li>
+    </ul>
+    {%block body%} {%endblock%}
+</body>
+
+</html>

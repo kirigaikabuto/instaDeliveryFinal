@@ -1,0 +1,116 @@
+{% load static %}
+<html>
+
+<head>
+    <title>Place Autocomplete and Directions</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+    #locfield{
+        -webkit-box-flex: 1 1 190px;
+        -ms-flex: 1 1 190px;
+        flex: 1 1 190px;
+        margin: 0 8px;
+
+        }
+    #right-panel input{
+        
+
+      }
+    #origin-input{
+    font-size: 15px;
+    font-weight: 300;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 50%;
+    margin-top:20px;
+    height: 32px;
+
+
+    }
+
+    #destination-input{
+    height: 32px;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 50%;
+    margin-left: 15px;
+    margin-top: 20px;
+    
+    text-overflow: ellipsis;
+
+    }
+   
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #map {
+    width: 100%;
+   
+    overflow:hidden;
+    padding-bottom:80.25%;
+    position:relative;
+    height:0;
+    }
+    .oformlenie{
+    margin-left: 120px;
+
+    }
+
+    </style>
+</head>
+
+<body>
+      <div id="map" style="">
+            <br>
+      </div>
+    <div   id="right-panel">
+    <form method="post" action="{% url 'post_order' %}" >
+    {% csrf_token %}
+        <input type="hidden" name="kilometr" id="dataforkilo">
+        <input type="hidden" name="orig" id="orig">
+        <input type="hidden" name="dest" id="dest">
+
+        <div class="lol" >
+    <div>
+       
+        <input   id="origin-input"  type="text" placeholder="Введите адрес забора">
+
+    </div>
+
+    <div>
+        <input id="destination-input" type="text" placeholder="Введите адрес доставки">
+    </div>
+    <br>
+     <div  id="mode-selector" class="controls" style="display: none;">
+            <input type="radio" name="type" id="changemode-walking" checked="checked">
+            <label for="changemode-walking">Walking</label>
+
+
+            <input type="radio" name="type" id="changemode-transit">
+            <label for="changemode-transit">Transit</label>
+
+            <input type="radio" name="type" id="changemode-driving">
+            <label for="changemode-driving">Driving</label>
+          
+        </div>   
+             
+          </div>
+         <input class="oformlenie" type="submit" value="Оформить заявку"> 
+      
+        </form>
+         <button class="oformlenie" id="perform_order" >Оформить заявку AJAX</button>
+    </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'js/main.js'%}">
+    
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvJTRsVCL84wIAUNH0NFX0mhPCOvNWtrw&libraries=places&callback=initMap" async defer></script>
+</body>
+
+</html>

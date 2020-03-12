@@ -1,0 +1,232 @@
+
+ {%extends 'Lallog/base.html'%} 
+ {%load static%} {%block title%} 
+ Заявка {%endblock%} {%block content%}
+
+
+<div class="kalkul">
+    <div class="dost">
+        <button class="marshrut">Пешком</button>
+        <button class="marshrut">Авто</button>
+    </div>
+    <div class="ves">
+        <button class="ves_value">до 3кг</button>
+        <button class="ves_value">до 5кг</button>
+        <button class="ves_value">до 7кг</button>
+    </div>
+
+    <div class="otkuda">
+        <div class="adres">
+            <h4 class="napravlenya">Откуда</h4>
+            <p><input class="adres_size" id="origin-input" type="text" placeholder="Введите адрес забора"><input type="hidden" class="adres_size" id="from" placeholder="adr" value=""></p>
+
+        </div>
+        <div class="data">
+            <p><input type="text" placeholder="Сотовый отправителя" id="from_phoner"></p>
+            <p>Забрать
+                <select name="data1" id="data1">
+<option value="data">Когда</option> 
+<option value="data">Сегодня</option>   
+<option value="data">Завтра</option>
+
+</select>
+            </p>
+            <p><textarea name="Komment" id="comment1" cols="30" rows="5" placeholder="Дополнительно: номер офиса или квартиры, этаж отправителя, габариты(если обёмное)"></textarea></p>
+        </div>
+
+
+    </div>
+
+
+    <div class="kuda">
+        <div class="adres">
+            <h4 class="napravlenya">Куда</h4>
+            <p> <input id="destination-input" class="adres_size" type="text" placeholder="Введите адрес доставки"><input type="hidden" class="adres_size" id="to" placeholder="adr" value=""></p>
+            <input type="hidden" id="distance" value="0">
+        </div>
+        <div class="data">
+            <p><input type="text" placeholder="Сотовый получателя" id="phone_number2"></p>
+            <p>Доставить
+                <select name="data1" id="data_1">
+<option value='Выберите дату'>Выберите Дату</option>	
+<option value='{{ mydate |date:"d F"}}'>{{ mydate |date:"d F"}}</option>    
+<option value='{{ mydate1 |date:"d F"}}'>{{ mydate1 |date:"d F"}}</option>
+<option value='{{ mydate2 |date:"d F"}}'>{{ mydate2 |date:"d F"}}</option>
+<option value='{{ mydate3 |date:"d F"}}'>{{ mydate3 |date:"d F"}}</option>
+<option value='{{ mydate4 |date:"d F"}}'>{{ mydate4 |date:"d F"}}</option>
+<option value='{{ mydate5 |date:"d F"}}'>{{ mydate5 |date:"d F"}}</option>
+</select>
+            </p>
+            <p>Доставить до
+
+                <select name="data1" id="data_to_until">
+<option value="Выберите время">Выберите время</option>	
+<option value="13.00">13.00</option>
+<option value="14.00">14.00</option>
+<option value="15.00">15.00</option>
+<option value="16.00">16.00</option>
+<option value="17.00">17.00</option>
+<option value="18.00">18.00</option>
+<option value="19.00">19.00</option>
+<option value="20.00">20.00</option>
+</select>
+            </p>
+            <p>
+                <select name="data1" id="money" onchange="fun1()">
+<option value="beznal">Денежных операций нет</option>	
+<option value="nal">Получить наличные</option>
+<input id="summa" type="text" placeholder="Сумма" class="form-control"  name="summa_kl">
+</select>
+            </p>
+            <!-- <p><input type="text" placeholder="Сумма"></p>	 -->
+            <p><textarea name="Komment" id="comment2" cols="30" rows="5" placeholder="Номер офиса или квартиры,этаж."></textarea></p>
+        </div>
+    </div>
+
+    <div class="chto">
+        <input type="text" id="chto_vezem" placeholder="Что везем?">
+    </div>
+
+    <div class="chto_imenno">
+        <ul>
+            <li><a type="button" onclick="document.getElementById('chto_vezem').value = 'Документы' ;">Документы</a></li>
+            <li><a type="button" onclick="document.getElementById('chto_vezem').value = 'Товар' ;">Товар</a></li>
+            <li><a type="button" onclick="document.getElementById('chto_vezem').value = 'Торт' ;">Торт</a></li>
+            <li><a type="button" onclick="document.getElementById('chto_vezem').value = 'Другое' ;">Напишите своё</a></li>
+        </ul>
+
+    </div>
+
+    <div class="itogo">
+        <div class="itogo_1">
+            <p>Доставка:
+                <input id="itogo" type="text">
+
+            </p>
+            <p>
+                Получить наличные
+                <input id="nal" type="text" value="0">
+            </p>
+            <p>
+                Расчет
+                <input id="raschet" type="text" value="0">
+            </p>
+            <div class="itogo_button">
+                {%csrf_token%}
+                <button id="send">Отправить заявку</button>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+<style>
+    #locfield {
+        -webkit-box-flex: 1 1 190px;
+        -ms-flex: 1 1 190px;
+        flex: 1 1 190px;
+        margin: 0 8px;
+    }
+    
+    #right-panel input {}
+    
+    #origin-input {
+        font-size: 15px;
+        font-weight: 300;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 100%;
+        margin-top: 20px;
+        height: 32px;
+        float: left;
+    }
+    
+    #destination-input {
+        height: 32px;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 100%;
+        margin-top: 20px;
+        float: left;
+        text-overflow: ellipsis;
+    }
+    
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #map {
+        width: 100%;
+        max-width: 500px;
+        max-height: 500px;
+        margin: 50px auto;
+        overflow: hidden;
+        padding-bottom: 80.25%;
+        position: relative;
+        height: 0;
+    }
+    
+    .oformlenie {
+        margin-left: 120px;
+    }
+</style>
+<div id="map" style="">
+    <br>
+</div>
+<div id="right-panel">
+    <form method="post" action="{% url 'post_order' %}">
+        {% csrf_token %}
+        <input type="hidden" name="kilometr" id="dataforkilo">
+        <input type="hidden" name="orig" id="orig">
+        <input type="hidden" name="dest" id="dest">
+
+        <div class="lol">
+            <div>
+
+
+
+            </div>
+
+            <div>
+
+            </div>
+
+            <div id="mode-selector" class="controls" style="display: none;">
+                <input type="radio" name="type" id="changemode-walking" checked="checked">
+                <label for="changemode-walking">Walking</label>
+
+
+                <input type="radio" name="type" id="changemode-transit">
+                <label for="changemode-transit">Transit</label>
+
+                <input type="radio" name="type" id="changemode-driving">
+                <label for="changemode-driving">Driving</label>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvJTRsVCL84wIAUNH0NFX0mhPCOvNWtrw&libraries=places&callback=initMap" async defer></script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="{% static 'js/form.js'%}"></script>
+
+
+
+{%endblock%}

@@ -1,0 +1,94 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>{%block title%} {%endblock%}</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Open+Sans" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
+
+
+
+
+    <body>
+
+
+
+        <div id="myModal">
+            <div class="forma">
+                <h2>Заказать звонок</h2>
+                <p>Укажите ваши контактные данные и наш эксперт свяжется с вами</p>
+                <p><input type="text" placeholder="Ваше имя" id="name"></p>
+                <p><input type="text" placeholder="Ваш телефон" id="phone_number1"></p>
+                <button id="send1">Отправить</button>
+            </div>
+
+            <span id="myModal__close" class="close"></span>
+        </div>
+
+        <div id="myOverlay">
+        </div>
+
+
+
+
+
+
+
+        <div class="menu">
+            <div class="icon">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="links">
+                <a href="{% url 'Home' %}" class="menu-icon">InstaDelivery</a>
+                <a href="{% url 'kalkul' %}" class="menu-item">Калькулятор</a>
+                <a href="{% url 'private' %}" class="menu-item">Выполняемые заказы</a>
+                <a href="{% url 'private_success' day='all'%}" class="menu-item">Выполненные заказы</a>
+                <a href="{% url 'private_raschet' %}" class="menu-item">Финансы</a>
+                <a href="{% url 'user_logout' %}" class="menu-item">Выйти</a>
+
+
+                <div id="none" class="icon-watsapp"><a href="https://wa.me/77753913031?text=Я%20заинтересован%20в%20услугах%20вашей%20фирмы" class="menu-watsapp_a"><i class="fab fa-whatsapp fa-2x"></i></a></div>
+                <!-- <a href="#" class="myLinkModal menu-item" id="menu-syte">+7(775)391-30-31</a>
+                <a href="tel:+77753913031" class="menu-hidden">+7(775)391-30-31</a> -->
+
+
+            </div>
+            <div class="username_best2">
+                {%if user.is_authenticated%} {{user.username}}
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        {%endif%} {%block content%} {%endblock content%}
+
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
+        <script src="{% static 'js/main.js'%}"></script>
+    </body>
+
+</html>

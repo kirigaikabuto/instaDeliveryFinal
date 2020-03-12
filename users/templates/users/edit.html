@@ -1,0 +1,20 @@
+{%extends 'Lallog/base.html'%}
+{%load crispy_forms_tags%}
+{%block title%}
+Изменение
+{%endblock%}
+
+
+{%block content%}
+{%if user.profile.photo%}
+  <img src="{{user.profile.photo.url}}" width="60" height="60">
+  {%endif%}
+<div class="container">
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{{user_form.as_p}}
+{{profile_form.as_p}}
+<input type="submit" value="Save">
+</form>
+</div>
+{%endblock%}

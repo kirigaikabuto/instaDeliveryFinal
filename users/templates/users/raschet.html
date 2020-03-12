@@ -1,0 +1,32 @@
+
+{%extends 'users/base.html'%}
+{%load static%}
+{%block title%} Личный кабиент {%endblock%}
+
+{%block content%}
+
+
+<div class="lichka">
+
+    <div class="lichka_prav">
+        <caption>Расчет</caption>
+        <table border="1" id="table_empty">
+            <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Наличные</th>
+            </tr>
+            </thead>
+            {%for i in analyze%}
+
+            <tr>
+                <td data-label="Дата">{{i.day}}</td>
+                <td data-label="Оплата">{{i.sum}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+</div>
+
+
+{%endblock content%}

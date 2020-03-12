@@ -1,0 +1,81 @@
+{%extends 'curiers/base_curier.html' %} {%load static%} {%block title%} Личный кабиент Курьера 2{%endblock%} {%block content%}
+
+<a href="{% url 'edit'%}">Мой профиль</a>
+<p>Мой баланс: {{request.user.mycurier.balance}} Тенге</p>
+
+<h2>Заказы</h2>
+<nav class="raschet_kur" >
+<ul >
+    <li><a href="{% url 'curier_rashet' day='today'%}">Сегодня</a></li>
+    <li><a href="{% url 'curier_rashet' day='yesterday'%}">Вчера</a></li>
+    <li ><a href="{% url 'curier_rashet' day='all'%}">Все заказы</a></li>
+   
+    <li><a href="#">Другие дни</a>
+    <ul>
+    {%for i in alldays%}
+    <li ><a href="{% url 'curier_rashet' day=i%}">{{i}}</a></li>
+    {%endfor%}    
+    </ul>
+    </li>
+    
+</ul>
+</nav>
+<div class="spisok">
+<table  border="1" id="table_empty">
+    <thead >
+        <tr style="background-color: #BA55D3">
+            <th>Компания</th>
+            <th>Откуда</th>
+            <th>Куда</th>
+            <th>Вес</th>
+            <th>Курьеру</th>
+            <th>Стоимость доставки</th>
+            <th>К переводу</th>
+            <th>Дата заявки</th>
+            <th>Время заявки</th>
+
+
+
+        </tr>
+    </thead>
+    {%for i in orders_completed%}
+
+    <tr >
+        <td data-label="Компания">{{i.client}}</td>
+        <td data-label="Откуда">{{i.from_address}}</td>
+
+        <td data-label="Куда">{{i.to}}</td>
+
+        <td data-label="Вес">{{i.ves}}кг</td>
+        <td data-label="Курьеру">{{i.curier_money}}</td>
+        <td data-label="Доставка">{{i.itog}}</td>
+        <td data-label="К переводу">{{i.raschet}}</td>
+
+
+
+        <td data-label="Дата">{{i.to_date}}</td>
+        <td data-label="Ограничения">{{i.to_date_until}}</td>
+
+
+    </tr>
+    {%endfor%}
+</table>
+</div>
+<div class="go_go_raschet">
+<table  class="go_go" style="max-width: 600px; "  border="1" id="table_empty">
+    <thead>
+    <tr style="background-color: #BA55D3">
+        <th>Дата</th>
+        <th>Оплата</th>
+    </tr>
+    </thead>
+    {%for i in analyze%}
+
+    <tr style="">
+        <td data-label="Дата">{{i.day}}</td>
+        <td data-label="Оплата">{{i.sum}}</td>
+    </tr>
+    {%endfor%}
+</table>
+</div>
+{%endblock content%}

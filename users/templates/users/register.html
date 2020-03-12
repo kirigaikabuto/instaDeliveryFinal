@@ -1,0 +1,16 @@
+{%extends 'Lallog/base.html'%}
+{%load crispy_forms_tags%}
+{%block title%}
+Регистрация
+{%endblock%}
+
+
+{%block content%}
+<div class="register_all">
+<form method="post">
+{% csrf_token%}
+{{register_form | crispy}}
+<button  class="reg_button" type="submit">Регистрация</button>
+</form>
+</div>
+{%endblock%}

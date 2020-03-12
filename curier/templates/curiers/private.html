@@ -1,0 +1,35 @@
+ {%extends 'curiers/base_curier.html' %} {%load static%} {%block title%} Личный кабиент Курьера{%endblock%} {%block content%}
+<style>
+
+</style>
+<a href="{% url 'edit'%}">Мой профиль</a>
+<p>Мой баланс: {{request.user.mycurier.balance}} Тенге</p>
+
+
+<h1>Мои заказы</h1>
+<table id="table_ajax">
+<thead>
+    <tr >
+        <th>Компания</th>
+        <th>Откуда</th>
+        <th>Контакты</th>
+        <th>Куда</th>
+        <th>Контакты</th>
+        <th>Вес</th>
+        <th>Стоимость доставки</th>
+        <th>Курьеру</th>
+        <th>Принято наличных</th>
+        <th>К выплате</th>
+        <th>Дата заявки</th>
+        <th>Время заявки</th>
+        <th>Текущий статус<th>
+
+    </tr>
+</thead>
+</table>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
+<script src="{% static 'js/curier.js'%}"></script>
+
+{%endblock content%}

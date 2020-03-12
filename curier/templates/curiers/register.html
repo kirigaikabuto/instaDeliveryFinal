@@ -1,0 +1,17 @@
+{%extends 'Lallog/base.html'%}
+{%load crispy_forms_tags%}
+{%block title%}
+Регистрация
+{%endblock%}
+
+
+{%block content%}
+<div class="cur_reg">
+<form method="post" enctype="multipart/form-data">
+{% csrf_token%}
+{{register_form.as_p}}
+{{curier_form.as_p}}
+<button class="reg_button" type="submit">Сохранить</button>
+</form>
+</div>
+{%endblock%}

@@ -1,0 +1,31 @@
+{%extends 'curiers/base_curier.html' %} {%load static%} {%block title%} Личный кабиент Курьера 2{%endblock%} {%block content%}
+<style>
+
+</style>
+<a href="{% url 'edit'%}">Мой профиль</a>
+<p>Мой баланс: {{request.user.mycurier.balance}} Тенге</p>
+
+<h2>Заказы</h2>
+<table border="1" id="table_history">
+    <thead>
+    <tr>
+        <th>Причина</th>
+        <th>Баланс</th>
+        <th>Сумма</th>
+        <th>Дата</th>
+    </tr>
+    </thead>
+    {%for i in history%}
+
+    <tr>
+        <td data-label="Причина">{{i.reason}}</td>
+        <td data-label="Баланс">{{i.balance_before}}</td>
+        <td data-label="Сумма">{{i.summa}}</td>
+        <td data-label="Дата">{{i.created_date}}</td>
+
+
+    </tr>
+    {%endfor%}
+</table>
+<h1>Общая сумма:{{total}}</h1>
+{%endblock content%}
