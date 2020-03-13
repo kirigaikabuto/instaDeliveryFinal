@@ -44,7 +44,7 @@ def curier_register(request):
 def private_сurier(request):
 	curier = request.user.mycurier
 	today  = timezone.now()
-	orders = TestOrder.objects.filter(status="Забрал")
+	orders = TestOrder.objects.filter(status="Забрал").order_by("-created_date")
 	cxt={
 	    'orders':orders,
 	}
@@ -53,7 +53,7 @@ def private_сurier(request):
 def private_сurier2(request):
 	curier = request.user.mycurier
 	today  = timezone.now()
-	all_empty_orders = TestOrder.objects.all().filter(curier=None)
+	all_empty_orders = TestOrder.objects.all().filter(curier=None).order_by("-created_date")
 	cxt={
 	    'empty_orders':all_empty_orders
 	}
@@ -88,21 +88,21 @@ def curier_cancel(request,id):
 def rashet_view(request,day):
 	curier = request.user.mycurier
 	orders_completed=None
-	alldaysorders=curier.choiced_curier.all().filter(status="Доставлен")
+	alldaysorders=curier.choiced_curier.all().filter(status="Доставлен").order_by("-created_date")
 	if day=="all":
-	    orders_completed = curier.choiced_curier.all().filter(status="Доставлен")
+	    orders_completed = curier.choiced_curier.all().filter(status="Доставлен").order_by("-created_date")
 	elif day=="today":
 		locale.setlocale(locale.LC_ALL, "ru")
 		mydate= datetime.date.today().strftime("%d %B")
-		orders_completed = curier.choiced_curier.all().filter(status="Доставлен",to_date=mydate)
+		orders_completed = curier.choiced_curier.all().filter(status="Доставлен",to_date=mydate).order_by("-created_date")
 	elif day=="yesterday":
 		locale.setlocale(locale.LC_ALL, "ru")
 		mydate1=datetime.date.today() - datetime.timedelta(days=1)
 		mydate1=mydate1.strftime("%d %B")
 		print(mydate1)
-		orders_completed = curier.choiced_curier.all().filter(status="Доставлен",to_date=mydate1)
+		orders_completed = curier.choiced_curier.all().filter(status="Доставлен",to_date=mydate1).order_by("-created_date")
 	else:
-	    orders_completed = curier.choiced_curier.all().filter(status="Доставлен",to_date=day)
+	    orders_completed = curier.choiced_curier.all().filter(status="Доставлен",to_date=day).order_by("-created_date")
 	mydata = list(orders_completed.values_list("to_date"))
 	mydata1 = list(alldaysorders.values_list("to_date"))
 	alldays=[]

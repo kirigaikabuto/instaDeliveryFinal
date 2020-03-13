@@ -33,7 +33,7 @@ class TestOrder(models.Model):
 	from_comment=models.CharField(max_length=200)
 	to=models.CharField(max_length=200)
 	to_phone=models.CharField(max_length=200)
-	to_date=models.CharField(max_length=200)
+	to_date=models.CharField(max_length=200,default="")
 	to_date_until=models.CharField(max_length=200)	
 	to_comment=models.CharField(max_length=200)
 	distance=models.DecimalField(decimal_places=0,max_digits=1000,default=10)
@@ -44,6 +44,7 @@ class TestOrder(models.Model):
 	status = models.CharField(max_length=200,default="Ожидание")
 	curier_money = models.DecimalField(decimal_places=0,max_digits=1000,default=0)
 	success = models.BooleanField(default=True)
+	created_date = models.DateTimeField(default=timezone.now)
 	__original_curier = None 
 
 	def __init__(self,*args,**kwargs):

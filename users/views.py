@@ -49,7 +49,7 @@ def user_login(request):
 		return render(request,"users/log_in.html",{})
 @csrf_exempt
 def private_data(request):
-	orders = TestOrder.objects.filter(client=request.user).exclude(status="доставлен").exclude(status="Доставлен")
+	orders = TestOrder.objects.filter(client=request.user).exclude(status="доставлен").exclude(status="Доставлен").order_by("-created_date")
 	data=[]
 	for i in orders:
 		obj={}
@@ -92,11 +92,11 @@ def user_logout(request):
 	return redirect("Home")
 
 def private_success(request,day):
-	curier = TestOrder.objects.filter(client=request.user)
+	curier = TestOrder.objects.filter(client=request.user).order_by("-created_date")
 	orders_completed=None
 	alldaysorders=curier.all().filter(status="Доставлен")
 	if day=="all":
-	    orders_completed = TestOrder.objects.filter(client=request.user,status="Доставлен")
+	    orders_completed = TestOrder.objects.filter(client=request.user,status="Доставлен").order_by("-created_date")
 	elif day=="today":
 		locale.setlocale(locale.LC_ALL, "ru")
 		mydate= datetime.date.today().strftime("%d %B")
@@ -106,9 +106,9 @@ def private_success(request,day):
 		mydate1=datetime.date.today() - datetime.timedelta(days=1)
 		mydate1=mydate1.strftime("%d %B")
 		print(mydate1)
-		orders_completed = curier.all().filter(status="Доставлен",to_date=mydate1)
+		orders_completed = curier.all().filter(status="Доставлен",to_date=mydate1).order_by("-created_date")
 	else:
-	    orders_completed = curier.all().filter(status="Доставлен",to_date=day)
+	    orders_completed = curier.all().filter(status="Доставлен",to_date=day).order_by("-created_date")
 	mydata = list(orders_completed.values_list("to_date"))
 	mydata1 = list(alldaysorders.values_list("to_date"))
 	alldays=[]
@@ -143,7 +143,7 @@ def private_success(request,day):
 	return render(request,"users/private2.html",context=ctx)
 def private_raschet(request):
     client = request.user
-    orders_completed = TestOrder.objects.filter(status="Доставлен",client=client)
+    orders_completed = TestOrder.objects.filter(status="Доставлен",client=client).order_by("-created_date")
     mydata = list(orders_completed.values_list("to_date"))
     days=[]
     for i in mydata:

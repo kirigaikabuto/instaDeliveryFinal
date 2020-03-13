@@ -105,7 +105,7 @@ def all_curier_data(request):
 	curier = request.user.mycurier
 	today  = timezone.now()
 	
-	orders = curier.choiced_curier.all().exclude(status="Доставлен")
+	orders = curier.choiced_curier.all().exclude(status="Доставлен").order_by("-created_date")
 	orders_json = []
 	for i in orders:
 		obj={
