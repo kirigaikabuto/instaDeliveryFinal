@@ -3,7 +3,8 @@ from django.conf import settings
 from django.utils import timezone
 class Curier(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name="mycurier")
-	date_of_birth=models.DateField(blank=True, null=True)
+	first_name = models.CharField(max_length=255,default="")
+	last_name = models.CharField(max_length=255, default="")
 	photo =models.ImageField(upload_to='curiers/%y/%m/%d', blank=True)
 	experience=models.IntegerField(blank=True, null=True)
 	phone = models.IntegerField(null=False, blank=False)

@@ -76,7 +76,7 @@ $(document).ready(function() {
                 opt.value = st;
                 opt.text = st;
                 select.appendChild(opt);
-                var change_statu=0;
+
                 select.addEventListener("change", function() {
 
                     object = {
@@ -84,8 +84,7 @@ $(document).ready(function() {
                         value: this.value
                     }
                     var token = '{%csrf_token%}';
-                    if (change_statu === 0){
-                     alert(this.value);
+
                     $.ajax({
                         url: "status/change/",
                         type: 'post',
@@ -98,10 +97,10 @@ $(document).ready(function() {
                         success: function(data) {
                             console.log(data.message)
                             create_table();
-                            change_statu=1;
+
                         }
                     })
-                    }
+
                 });
             }
             let td = document.createElement("td");

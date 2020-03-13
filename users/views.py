@@ -67,7 +67,7 @@ def private_data(request):
 		obj["К выплате"] = i.raschet
 		obj["Статус"] = i.status
 		try:
-			obj["Курьер"] = i.curier.user.username
+			obj["Курьер"] = i.curier.first_name+" "+i.curier.last_name
 			obj["Номер курьера"] = i.curier.phone
 		except:
 			obj["Курьер"] = "Ждем курьера"

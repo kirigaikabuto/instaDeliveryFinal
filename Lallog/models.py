@@ -43,27 +43,13 @@ class TestOrder(models.Model):
 	raschet=models.DecimalField(decimal_places=0,max_digits=1000,default=0)
 	status = models.CharField(max_length=200,default="Ожидание")
 	curier_money = models.DecimalField(decimal_places=0,max_digits=1000,default=0)
+	success = models.BooleanField(default=True)
 	__original_curier = None 
 
 	def __init__(self,*args,**kwargs):
 		print("Object was created")
 		super(TestOrder,self).__init__(*args,**kwargs)
 		self.__origin_curier = self.curier
-
-	def save(self,force_insert=False,force_update=False,*args,**kwargs):
-		if self.curier is None:
-			self.__origin_curier = self.curier
-			# self.curier_money = (self.itog*65)//100
-			super(TestOrder,self).save(force_insert,force_update,*args,**kwargs)
-		elif self.curier != self.__origin_curier:
-			# self.curier.balance-=(self.itog*35)//100
-			if self.curier.balance>=0:
-				self.curier.save()
-				super(TestOrder,self).save(force_insert,force_update,*args,**kwargs)
-				self.__origin_curier = self.curier
-		else:
-			super(TestOrder,self).save(force_insert,force_update,*args,**kwargs)
-
 
 
 

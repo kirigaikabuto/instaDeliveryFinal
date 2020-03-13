@@ -62,6 +62,7 @@ def get_calcul(request):
 		from_phone = mydata.get("from_phone"),
 		from_comment = mydata.get("from_comment"),
 		to = mydata.get("to"),
+		curier_money=(mydata.get("itog") * 65) // 100,
 		to_phone = mydata.get("to_phone"),
 		to_date = mydata.get("to_date"),
 		to_date_until = mydata.get("to_date_until"),
@@ -133,6 +134,8 @@ def sendFromTelegram(chat_id,text):
 def order_cancel(request):
 	mydata = json.loads(request.read().decode('utf-8'))
 	current_test_order = TestOrder.objects.get(pk=int(mydata.get("id")))
-	current_test_order.status = "Отменен"
+	current_test_order.status = "Доставлен"
+	current_test_order.success = False
+	current_test_order.raschet=0
 	current_test_order.save()
 	return JsonResponse({"order":"Заказ был удален"})

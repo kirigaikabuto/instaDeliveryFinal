@@ -6,4 +6,4 @@ class CurierRegisterForm(forms.ModelForm):
 
 	class Meta:
 		model = Curier
-		fields=('date_of_birth','photo','experience','phone')
+		fields=('first_name','last_name','photo','experience','phone')

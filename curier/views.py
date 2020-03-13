@@ -20,14 +20,15 @@ def curier_register(request):
 			new_user= user_form.save()
 			new_curier = Curier.objects.create(
 				user=new_user,
-				date_of_birth=curier_form.cleaned_data.get('date_of_birth'),
+				first_name = curier_form.cleaned_data.get('first_name'),
+				last_name=curier_form.cleaned_data.get('last_name'),
 				photo=request.FILES['photo'],
 				experience=curier_form.cleaned_data.get('experience'),
 				phone=curier_form.cleaned_data.get('phone'),
 				)
 			new_curier.save()
-			text=new_user.username+" "+str(curier_form.cleaned_data.get('date_of_birth'))+" "+str(curier_form.cleaned_data.get('phone'))
-			send_mail("new curier",text,'tleugazy98@gmail.com',['jakesablee@gmail.com'],fail_silently=False)
+			text=new_user.username+" "+str(curier_form.cleaned_data.get('phone'))
+			# send_mail("new curier",text,'tleugazy98@gmail.com',['jakesablee@gmail.com'],fail_silently=False)
 			return redirect("Home")
 		return HttpResponse("Error")
 
@@ -62,8 +63,12 @@ def curier_select(request,id):
 	current_test_order = TestOrder.objects.get(pk=id)
 	# change = Changes.objects.create(user=request.user.mycurier,balance_before=request.user.mycurier.balance-((current_test_order.itog*35)//100),summa=((current_test_order.itog*35)//100),reason="Взял Заказ")
 	# change.save()
-	current_test_order.curier = request.user.mycurier
-	current_test_order.save()
+	if request.user.mycurier.balance>0:
+		current_test_order.curier = request.user.mycurier
+		current_test_order.save()
+		print("Order accepted")
+	else:
+		print("Order not accepted")
 	return redirect("private_сurier")
 	
 def curier_cancel(request,id):
