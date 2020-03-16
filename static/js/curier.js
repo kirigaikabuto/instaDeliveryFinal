@@ -70,18 +70,31 @@ $(document).ready(function() {
                 tr.appendChild(td);
             }
             let select = document.createElement("select")
+
+            let id = order["id"]+"select"
+            select.id= id;
+
             let statuses = ["Статус", "Забрал", "Еду на доставку", "Доставлен"]
             for (let st of statuses) {
                 let opt = document.createElement("option");
                 opt.value = st;
                 opt.text = st;
                 select.appendChild(opt);
-                select.addEventListener("change", function() {
+
+            }
+            //
+                 $("select#"+id).change(function(){
+
+                    alert('Selected value: ' + $(this).val());
+                     });
+              select.addEventListener("change", function() {
+
                     object = {
                         id: order["id"],
                         value: this.value
                     }
                     var token = '{%csrf_token%}';
+
                     $.ajax({
                         url: "status/change/",
                         type: 'post',
@@ -94,10 +107,12 @@ $(document).ready(function() {
                         success: function(data) {
                             console.log(data.message)
                             create_table();
+
                         }
                     })
+
                 });
-            }
+                //
             let td = document.createElement("td");
             td.setAttribute("data-label", "Изменить статус");
             td.appendChild(select)
@@ -107,8 +122,38 @@ $(document).ready(function() {
             a.href = "/curiers/private_curier/cancel/" + order["id"];
             a.innerHTML = "Отказаться"
             td_a.appendChild(a);
+            var torrance1=document.createElement("td");
+            torrance1.setAttribute("data-label","Отказ Клиента")
+            var td_a_cancel = document.createElement("a");
+            td_a_cancel.innerHTML = "Отказ Клиента";
+            td_a_cancel.href="#"
+            td_a_cancel.addEventListener("click",function(){
+            var newobject = {
+                        id: order["id"],
+            }
+
+            if (confirm("Вы уверены?")) {
+                  alert("Заказ был отменен")
+                  $.ajax({
+                  url:"order/cancel/",
+                  dataType: 'json',
+                  method:"POST",
+                  contentType: "application/json",
+                  data:JSON.stringify(newobject),
+                  success:function(data){
+                     create_table();
+                  }
+                  });
+                } else {
+                  alert("Заказ не был отменен")
+                }
+            })
+            torrance1.appendChild(td_a_cancel);
             tr.appendChild(td);
             tr.appendChild(td_a);
+            tr.appendChild(torrance1);
+
+
             tbody.appendChild(tr);
 
             tr.addEventListener("click", function(event) {

@@ -61,7 +61,9 @@ tel.addEventListener("change",function(){
 });
 var comment1 = document.querySelector("#comment1");
 comment1.addEventListener("change",function(){
-  object.from_comment = comment1.value;
+  //console.log(comment1.value.length)
+     object.from_comment = comment1.value;
+
 });
 
 var to  = document.querySelector("#to");
@@ -100,7 +102,7 @@ main.addEventListener("mouseout",function(){
 
     if(object[prop]==null)
     {
-      console.log(object);
+      // console.log(object);
     }
   }
 });
@@ -153,6 +155,43 @@ $(document).ready(function(){
   $('#send').on("click", function(){
     object.nal = document.querySelector("#nal").value;
     object.raschet = document.querySelector("#raschet").value;
+    //проверка
+    var fromеtest  = document.querySelector("#origin-input");
+    var tel = document.querySelector("#from_phoner");
+    var comment1 = document.querySelector("#comment1");
+    var totest  = document.querySelector("#destination-input");
+    var tel2 = document.querySelector("#phone_number2");
+    var data1 = document.querySelector("#data_1");
+    var data2 = document.querySelector("#data_to_until");
+    var comment2 = document.querySelector("#comment2");
+    
+  ///
+  if (fromеtest.value.length==0){
+    console.log(from.value.length);
+    alert("Заполните поле from");
+  }
+  else if(tel.value.length==0){
+    alert("Заполните поле телефон откуда");
+  }
+   else if(comment1.value.length==0){
+     alert("Заполните поле комментарий1");
+  }
+   else if(totest.value.length==0){
+    alert("Заполните поле to");
+  }
+   else if(tel2.value.length==0){
+    alert("Заполните поле телефон куда");
+  }
+  else if(data1.value.length==0){
+    alert("Заполните поле дата");
+  }
+  else if(data2.value.length==0){
+    alert("Заполните поле дата и день");
+  }
+  else if(comment2.value.length==0){
+   alert("Заполните второй комментарий");
+  }
+  else{
     var token = '{%csrf_token%}';
      $.ajax({
        url: "kalkul/send/",
@@ -167,10 +206,12 @@ $(document).ready(function(){
        {
         alert(data.message)
         console.log(data.arr)
+        window.location.replace("http://127.0.0.1:8000/users/private/");
        }
      })
+  }
+  });
 
      
-  });
 });
 

@@ -13,7 +13,7 @@ $(document).ready(function()
        {
        let orders = data.orders;
        create_table(orders);
-       console.log(orders)
+
      }});
 })
 function create_table(orders){
@@ -35,8 +35,8 @@ function create_table(orders){
        tr.appendChild(td)
        let cancel = document.createElement("a")
        let td_cancel = document.createElement("td")
- 
-       if(order["Статус"]==="Ожидание" && order["Курьер"]==="Ждем курьера"){
+       console.log(order['Статус'])
+       if(order["Статус"]==="Ожидание"){
         cancel.innerHTML="Отменить"
          cancel.href="remove_order/"+order["id"]+"/"
       }
