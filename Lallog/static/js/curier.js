@@ -77,7 +77,9 @@ $(document).ready(function() {
                 opt.text = st;
                 select.appendChild(opt);
 
-                select.addEventListener("change", function() {
+
+            }
+              select.addEventListener("change", function() {
 
                     object = {
                         id: order["id"],
@@ -102,7 +104,6 @@ $(document).ready(function() {
                     })
 
                 });
-            }
             let td = document.createElement("td");
             td.setAttribute("data-label", "Изменить статус");
             td.appendChild(select)

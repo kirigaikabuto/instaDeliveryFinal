@@ -87,12 +87,11 @@ def status_change(request):
 	mydata = json.loads(request.read().decode('utf-8'))
 	current_test_order=  TestOrder.objects.get(pk=int(mydata.get("id")))
 	current_test_order.status = mydata.get("value")
+	print(mydata.get("value"))
 	if current_test_order.status =="Забрал":
-		
 		change = Changes.objects.create(user=request.user.mycurier,balance_before=request.user.mycurier.balance-((current_test_order.itog*35)//100),summa=((current_test_order.itog*35)//100),reason="Забрал заказ")
 		change.save()
 		current_test_order.curier.balance-=(current_test_order.itog*35)//100
-
 		current_test_order.curier.save()
 
 	current_test_order.save()
