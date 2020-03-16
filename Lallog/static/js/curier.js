@@ -70,6 +70,10 @@ $(document).ready(function() {
                 tr.appendChild(td);
             }
             let select = document.createElement("select")
+
+            let id = order["id"]+"select"
+            select.id= id;
+
             let statuses = ["Статус", "Забрал", "Еду на доставку", "Доставлен"]
             for (let st of statuses) {
                 let opt = document.createElement("option");
@@ -77,8 +81,12 @@ $(document).ready(function() {
                 opt.text = st;
                 select.appendChild(opt);
 
-
             }
+            //
+                 $("select#"+id).change(function(){
+
+                    alert('Selected value: ' + $(this).val());
+                     });
               select.addEventListener("change", function() {
 
                     object = {
@@ -104,6 +112,7 @@ $(document).ready(function() {
                     })
 
                 });
+                //
             let td = document.createElement("td");
             td.setAttribute("data-label", "Изменить статус");
             td.appendChild(select)

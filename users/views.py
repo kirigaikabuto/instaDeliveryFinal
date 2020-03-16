@@ -96,7 +96,7 @@ def private_success(request,day):
 	orders_completed=None
 	alldaysorders=curier.all().filter(status="Доставлен")
 	if day=="all":
-	    orders_completed = TestOrder.objects.filter(client=request.user,status="Доставлен").order_by("-created_date")
+	    orders_completed = TestOrder.objects.filter(client=request.user,status="Доставлен")
 	elif day=="today":
 		locale.setlocale(locale.LC_ALL, "ru")
 		mydate= datetime.date.today().strftime("%d %B")
@@ -106,9 +106,9 @@ def private_success(request,day):
 		mydate1=datetime.date.today() - datetime.timedelta(days=1)
 		mydate1=mydate1.strftime("%d %B")
 		print(mydate1)
-		orders_completed = curier.all().filter(status="Доставлен",to_date=mydate1).order_by("-created_date")
+		orders_completed = curier.all().filter(status="Доставлен",to_date=mydate1)
 	else:
-	    orders_completed = curier.all().filter(status="Доставлен",to_date=day).order_by("-created_date")
+	    orders_completed = curier.all().filter(status="Доставлен",to_date=day)
 	mydata = list(orders_completed.values_list("to_date"))
 	mydata1 = list(alldaysorders.values_list("to_date"))
 	alldays=[]
