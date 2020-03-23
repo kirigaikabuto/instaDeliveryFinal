@@ -93,22 +93,24 @@ def user_logout(request):
 
 def private_success(request,day):
 	curier = TestOrder.objects.filter(client=request.user).order_by("-created_date")
+
 	orders_completed=None
 	alldaysorders=curier.all().filter(status="Доставлен")
 	if day=="all":
-	    orders_completed = TestOrder.objects.filter(client=request.user,status="Доставлен")
+	    orders_completed = TestOrder.objects.filter(client=request.user,status="Доставлен",success=True)
 	elif day=="today":
-		locale.setlocale(locale.LC_ALL, "ru")
+		# locale.setlocale(locale.LC_ALL, "ru")
 		mydate= datetime.date.today().strftime("%d %B")
-		orders_completed = curier.all().filter(status="Доставлен",to_date=mydate)
+		print(mydate)
+		orders_completed = curier.all().filter(status="Доставлен",to_date=mydate).order_by("-created_date")
 	elif day=="yesterday":
-		locale.setlocale(locale.LC_ALL, "ru")
+		# locale.setlocale(locale.LC_ALL, "ru")
 		mydate1=datetime.date.today() - datetime.timedelta(days=1)
 		mydate1=mydate1.strftime("%d %B")
 		print(mydate1)
-		orders_completed = curier.all().filter(status="Доставлен",to_date=mydate1)
+		orders_completed = curier.all().filter(status="Доставлен",to_date=mydate1).order_by("-created_date")
 	else:
-	    orders_completed = curier.all().filter(status="Доставлен",to_date=day)
+	    orders_completed = curier.all().filter(status="Доставлен",to_date=day).order_by("-created_date")
 	mydata = list(orders_completed.values_list("to_date"))
 	mydata1 = list(alldaysorders.values_list("to_date"))
 	alldays=[]
@@ -142,29 +144,11 @@ def private_success(request,day):
 	}
 	return render(request,"users/private2.html",context=ctx)
 def private_raschet(request):
-    client = request.user
-    orders_completed = TestOrder.objects.filter(status="Доставлен",client=client).order_by("-created_date")
-    mydata = list(orders_completed.values_list("to_date"))
-    days=[]
-    for i in mydata:
-        days.append(i[0])
-    days=set(days)
-    analyze=[]
-    for i in days:
-	    order = orders_completed.filter(to_date=i)
-	    sumi=0
-	    for j in order:
-	        sumi+=j.raschet
-	    temp={
-	    "day":i,
-	    "sum":int(sumi)
-	    }
-	    analyze.append(temp)
-    print(analyze)
-    ctx={
-		"analyze":analyze,
+	orders_canceled = TestOrder.objects.filter(client=request.user, status="Доставлен", success=False)
+	ctx={
+		"orders":orders_canceled
 	}
-    return render(request,"users/raschet.html",context=ctx)
+	return render(request,"users/raschet.html",context=ctx)
 def edit(request):
 	if request.method=='POST':
 		user_form= UserEditForm(instance=request.user, data=request.POST)
@@ -179,4 +163,26 @@ def edit(request):
 		profile_form=ProfileEditForm(instance=request.user.profile)
 		return render(request, 'users/edit.html', {'user_form':user_form, 'profile_form':profile_form})
 
+def user_rachet(request):
 
+	total_months = getByMonth(request)
+	ctx = {
+		"total":total_months,
+	}
+	return render(request, "users/user_rachet.html", context=ctx)
+
+def getByMonth(request):
+	orders = TestOrder.objects.filter(client=request.user).order_by("-created_date")
+	months = []
+	total=[]
+	for i in orders:
+		month = i.to_date.split(" ")[1]
+		if month not in months:
+			months.append(month)
+	for i in months:
+		sumi=0
+		for j in orders:
+			if i==j.to_date.split(" ")[1]:
+				sumi+=j.itog
+		total.append({"month":i,"total":sumi})
+	return total

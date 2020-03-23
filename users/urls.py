@@ -10,7 +10,8 @@ urlpatterns = [
     path("private/success/<str:day>",views.private_success,name="private_success"),
     path("private/raschet/",views.private_raschet,name="private_raschet"),
     path('private/remove_order/<int:id>/',views.remove_order,name="remove_order"),
-    path ('edit/',views.edit, name= 'edit'),
+    path('private/user_rachet/',views.user_rachet,name="user_rachet"),
+    path('edit/',views.edit, name= 'edit'),
 
 
 ]

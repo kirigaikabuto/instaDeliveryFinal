@@ -8,23 +8,54 @@
 
 <div class="lichka">
 
-    <div class="lichka_prav">
-        <caption>Расчет</caption>
-        <table border="1" id="table_empty">
-            <thead>
-            <tr>
-                <th>Дата</th>
-                <th>Наличные</th>
-            </tr>
-            </thead>
-            {%for i in analyze%}
+<div class="lichka_prav">
+        <caption>Список Отмененных заказов</caption>
+        <table  border="1" id="table_private">
 
+            <tr >
+                <th>Компания</th>
+                <th>Откуда</th>
+                <th>Контакты</th>
+                <th>Комментарий</th>
+                <th>Куда</th>
+                <th>Контакты</th>
+                <th>Комментарий</th>
+                <th>Вес</th>
+                <th>Доставить</th>
+                <th>До</th>
+                <th>Доставка</th>
+
+                <th>Выплата</th>
+                <th>Статус</th>
+                <th>Курьер</th>
+
+            </tr>
+            {%for i in orders%}
             <tr>
-                <td data-label="Дата">{{i.day}}</td>
-                <td data-label="Оплата">{{i.sum}}</td>
+                <td data-label="Компания">{{i.client}}</td>
+                <td data-label="Откуда">{{i.from_address}}</td>
+                <td data-label="Контакты">{{i.from_phone}}</td>
+                 <td data-label="Комментарий">{{i.from_comment}}</td>
+                <td data-label="Куда">{{i.to}}</td>
+                <td data-label="Контакты">{{i.to_phone}}</td>
+                <td data-label="Комментарий">{{i.to_comment}}</td>
+                <td data-label="Вес">{{i.ves}}кг</td>
+                <td data-label="Доставить">{{i.to_date}}</td>
+                <td data-label="Ограничения">{{i.to_date_until}}</td>
+                <td data-label="Доставка">{{i.itog}}</td>
+
+                <td data-label="К выплате">{{i.raschet}}</td>
+                <td data-label="Статус">{{i.status}}</td>
+                <td data-label="Курьер">{{i.curier.user}}</td>
+
+
+
+
+
             </tr>
             {%endfor%}
         </table>
+
     </div>
 </div>
 

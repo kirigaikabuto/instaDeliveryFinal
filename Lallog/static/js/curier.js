@@ -57,6 +57,7 @@ $(document).ready(function() {
         }
 
         for (let order of data) {
+            var td_a_cancel = document.createElement("a");
             let tr = document.createElement("tr");
             let a = document.createElement("a");
             for (let key of Object.keys(order)) {
@@ -66,6 +67,9 @@ $(document).ready(function() {
                 td.setAttribute("data-label", key);
                 if (order["Статус"] !== "Ожидание") {
                     a.style.display = "none";
+                }else
+                {
+                    td_a_cancel.style.display = "none";
                 }
                 tr.appendChild(td);
             }
@@ -74,8 +78,16 @@ $(document).ready(function() {
             let id = order["id"]+"select"
             select.id= id;
 
-            let statuses = ["Статус", "Забрал", "Еду на доставку", "Доставлен"]
-            for (let st of statuses) {
+            let statuses = ["Статус", "Забрал", "Еду на доставку", "Доставлен"];
+            let newstatuses = []
+            let n = statuses.lastIndexOf(order['Статус'])+1
+            if (order['Статус']==="Ожидание"){
+                n=1
+            }
+            newstatuses[0]='Статус'
+            newstatuses[1]=statuses[n]
+
+            for (let st of newstatuses) {
                 let opt = document.createElement("option");
                 opt.value = st;
                 opt.text = st;
@@ -124,7 +136,7 @@ $(document).ready(function() {
             td_a.appendChild(a);
             var torrance1=document.createElement("td");
             torrance1.setAttribute("data-label","Отказ Клиента")
-            var td_a_cancel = document.createElement("a");
+
             td_a_cancel.innerHTML = "Отказ Клиента";
             td_a_cancel.href="#"
             td_a_cancel.addEventListener("click",function(){

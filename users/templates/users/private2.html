@@ -70,7 +70,18 @@
             </tr>
             {%endfor%}
         </table>
-
+  <table  border="1" id="table_private">
+      <tr>
+          <th>День</th>
+          <th>Доставка</th>
+      </tr>
+      {%for i in analyze%}
+      <tr>
+          <td data-label="День">{{i.day}}</td>
+          <td data-label="Сумма">{{i.sum}}</td>
+      </tr>
+      {%endfor%}
+  </table>
     </div>
 
 

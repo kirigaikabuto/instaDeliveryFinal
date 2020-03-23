@@ -50,9 +50,10 @@
             <div class="links">
                 <a href="{% url 'Home' %}" class="menu-icon">InstaDelivery</a>
                 <a href="{% url 'kalkul' %}" class="menu-item">Калькулятор</a>
-                <a href="{% url 'private' %}" class="menu-item">Выполняемые заказы</a>
-                <a href="{% url 'private_success' day='all'%}" class="menu-item">Выполненные заказы</a>
-                <a href="{% url 'private_raschet' %}" class="menu-item">Финансы</a>
+                <a href="{% url 'private' %}" class="menu-item">Выполняемые</a>
+                <a href="{% url 'private_success' day='all'%}" class="menu-item">Выполненные</a>
+                <a href="{% url 'private_raschet' %}" class="menu-item">Отмененные</a>
+                <a href="{% url 'user_rachet' %}" class="menu-item">Расчет</a>
                 <a href="{% url 'user_logout' %}" class="menu-item">Выйти</a>
 
 

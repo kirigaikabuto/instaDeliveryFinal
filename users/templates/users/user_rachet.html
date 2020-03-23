@@ -1,0 +1,27 @@
+
+{%extends 'users/base.html'%}
+{%load static%}
+{%block title%} Личный кабиент {%endblock%}
+
+{%block content%}
+
+
+<div class="lichka">
+ <div class="lichka_prav">
+        <caption>Расчет по месяцам</caption>
+ <table  border="1" id="table_private">
+            <tr>
+                <th>Месяц</th>
+                <th>Доставка</th>
+            </tr>
+             {%for i in total%}
+             <tr>
+                 <td data-label="Месяц">{{i.month}}</td>
+                 <td data-label="Расчет">{{i.total}}</td>
+             </tr>
+             {%endfor%}
+         </table>
+ </div>
+</div>
+
+{%endblock content%}
