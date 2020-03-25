@@ -73,7 +73,7 @@ def get_calcul(request):
 		raschet=mydata.get("raschet")
 		)
 	order.save()
-	text="Новый заказ"+order.from_address+" "+order.to+" "+order.to_date_until
+	text="Новый заказ:"+" "+ str(order.client) + ", " + "Откуда:"+" "+order.from_address+" "+"Куда:"+" "+order.to+", "+"Доставить до:"+" "+order.to_date_until+", "+ str(order.curier_money) +" "+"Тенге курьеру"+", "+ str(order.ves) +"Кг."
 	sendFromTelegram("-366408539",text)
 	otvet = {
 	"message":"Заявка отправлена!",

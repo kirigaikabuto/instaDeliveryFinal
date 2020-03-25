@@ -11,6 +11,7 @@ import json
 from django.db.models import Sum
 import datetime
 import locale
+from Lallog.views import  sendFromTelegram
 def curier_register(request):
 	if request.method=="POST":
 		user_form = UserRegisterForm(data=request.POST)
@@ -67,6 +68,9 @@ def curier_select(request,id):
 		current_test_order.curier = request.user.mycurier
 		current_test_order.save()
 		print("Order accepted")
+		text = "Заказ принят курьером:" + request.user.username+ ", Клиент:" + str(
+			current_test_order.client) + ", " + "Откуда:" + " " + current_test_order.from_address + " " + "Куда:" + " " + current_test_order.to
+		sendFromTelegram("-366408539", text)
 	else:
 		print("Order not accepted")
 	return redirect("private_сurier")
