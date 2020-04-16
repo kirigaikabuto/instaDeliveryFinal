@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Примеры. Поиск геообъектов и отображение их на карте</title>
+        <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
+        <style type="text/css">
+            #map {
+                position: absolute; 
+                width: 600px; 
+                height: 500px;
+            }
+
+            #search_form {
+                position: relative; 
+                left: 10px; 
+                top: 10px; 
+                width: 295px; 
+                z-index: 1200;            
+            }
+
+            #text {
+                width: 200px;
+            }
+
+            #button {
+                width: 80px;
+            }
+        </style>
+        <script>
+            var myMap;
+        
+            DG.then(function() {
+                // Инициализация карты:
+                myMap = new DG.Map(
+                    'map',
+                    {
+                        center: [54.98, 82.89],
+                    zoom: 13
+                    }
+                    
+                    );
+                    try {
+                    // Выполнение поиска:
+                    DG.Geocoder.get('House', {
+                        types: ['city', 'settlement', 'district', 'street', 'living_area', 'place', 'house'],
+                        bound: myMap.getBounds(),
+                        limit: 100,
+                        // Обработка успешного поиска
+                        success: function(geocoderObjects) {
+                            // Сброс результатов прошлого поиска:
+                            console.log(geocoderObject);
+                            myMap.markers.removeAll();
+                            myMap.balloons.removeAll();
+                            // Обходим в цикле все полученные геообъекты:
+                            for (var i = 0, len = geocoderObjects.length; i < len; i++) {
+                                var geocoderObject = geocoderObjects[i];
+
+                                // Получаем необходимые данные о геообъекте и устанавливаем желаемый формат вывода информации
+                                var info = '<b>Имя этого объекта:</b><br>' + geocoderObject.getName();
+
+                                var attributes = geocoderObject.getAttributes();
+                                if (attributes) {
+                                    info += '<br><b>Дополнительная информация:</b><br>'
+                                }
+                                for (var attribute in attributes) {
+                                    if (attributes.hasOwnProperty(attribute)) {
+                                        info += attribute + ': ' + attributes[attribute] + '<br>';
+                                    }
+                                }
+
+                                // Опции маркера:
+                                var markerOptions = {
+                                    geoPoint: geocoderObject.getCenterGeoPoint(),
+                                    // Устанавливаем опции балуна:
+                                    balloonOptions: {
+                                        // Указываем содержимое балуна:
+                                        contentHtml: info
+                                    }
+                                }
+
+                                // Создаем маркер:
+                                var marker = new DG.Markers.MarkerWithBalloon(markerOptions);
+
+                                // Добавляем маркер на карту:
+                                myMap.markers.add(marker);
+                            }
+                        },
+                        // Обработка ошибок поиска:
+                        failure: function(code, message) {
+                            alert(code + ' ' + message);
+                        }
+                    });
+                
+                // Обработка некорректных поисковых запросов:
+                } catch(error) {
+                    if (error.message == 'Parameter "query" is required and should be a string at least two characters long, number or an instance of "DG.GeoPoint"') {
+                        alert('Поисковый запрос должен состоять из минимум 2-х символов!');
+                    }
+                    alert("erorro")
+                }
+            });
+        
+            function searchPoints(query) {
+                // Используем оператор try..catch для обработки некорректных запросов:    
+               
+            }
+
+        </script>
+    </head>    
+    <body>
+        <h2>Поиск геообъектов и отображение их на карте</h2>
+        <div id="map"></div>
+        <form id="search_form" onsubmit="searchPoints('рынок');return false;">
+            <input type="text" id="text" name="search" value="">
+            <input type="button" id="button" value="Найти" onclick="searchPoints('рынок');"> 
+        </form>
+    </body>
+</html>
