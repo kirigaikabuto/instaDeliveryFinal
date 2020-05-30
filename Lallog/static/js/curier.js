@@ -131,9 +131,18 @@ $(document).ready(function() {
             let td_a = document.createElement("td");
             td_a.setAttribute("data-label", "отменить");
 
-            a.href = "/curiers/private_curier/cancel/" + order["id"];
-            a.innerHTML = "Отказаться"
+//
+            a.innerHTML = "Отказаться";
+            a.href="#";
+            a.addEventListener("click",function(){
+                  if (confirm("Вы уверены?")) {
+                    a.href = "/curiers/private_curier/cancel/" + order["id"];
+                  }else{
+                   alert("Заказ не был отменен");
+                  }
+            });
             td_a.appendChild(a);
+
             var torrance1=document.createElement("td");
             torrance1.setAttribute("data-label","Отказ Клиента")
 

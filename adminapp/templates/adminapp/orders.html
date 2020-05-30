@@ -39,7 +39,6 @@ margin: 5px 0;
     <ul>
         <li> <a href="{% url 'orders_all'%}">Все заказы</a></li>
         <li> <a href="{% url 'orders_today'%}">Сегодня</a></li>
-        <li> <a>Завтра</a></li>
     </ul>
 </div>
 <form method="POST" action="{% url 'orders_all'%}">
@@ -59,20 +58,44 @@ margin: 5px 0;
     <button id="export">Export to Excell</button>
 </div>
 <table border="1" id="result">
-    <tr>
-        {%for i in fields%}
-        <th>{{i}}</th>
-        {%endfor%}
-    </tr>
+      <tr style="background-color: #BA55D3">
+            <th>Компания</th>
+            <th>Курьер</th>
+            <th>Откуда</th>
+            <th>Куда</th>
+            <th>Вес</th>
+            <th>Курьеру</th>
+            <th>Стоимость доставки</th>
+            <th>К переводу</th>
+            <th>Дата заявки</th>
+            <th>Время заявки</th>
+
+
+
+        </tr>
    
-        {%for order in orders%}
-         <tr>
-            <td>{{order.id}}</td>
-            <td>{{order.client}}</td>
-            <td>{{order.curier.user.username}}</td>
-            <td>{{order.to_date}}</td>
-            </tr>
-        {%endfor%}
+        {%for i in orders%}
+
+    <tr >
+        <td data-label="Компания">{{i.client}}</td>
+           <td data-label="Курбер">{{i.curier.user.username}}</td>
+        <td data-label="Откуда">{{i.from_address}}</td>
+
+        <td data-label="Куда">{{i.to}}</td>
+
+        <td data-label="Вес">{{i.ves}}кг</td>
+        <td data-label="Курьеру">{{i.curier_money}}</td>
+        <td data-label="Доставка">{{i.itog}}</td>
+        <td data-label="К переводу">{{i.raschet}}</td>
+
+
+
+        <td data-label="Дата">{{i.to_date}}</td>
+        <td data-label="Ограничения">{{i.to_date_until}}</td>
+
+
+    </tr>
+    {%endfor%}
     
 
 </table>

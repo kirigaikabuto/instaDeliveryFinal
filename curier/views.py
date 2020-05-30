@@ -96,11 +96,17 @@ def rashet_view(request,day):
 	if day=="all":
 	    orders_completed = curier.choiced_curier.all().filter(status="Доставлен").order_by("-created_date")
 	elif day=="today":
-		locale.setlocale(locale.LC_ALL, "ru")
-		mydate= datetime.date.today().strftime("%d %B")
-		orders_completed = curier.choiced_curier.all().filter(status="Доставлен",to_date=mydate).order_by("-created_date")
+		mydate= datetime.date.today()
+		print(mydate)
+		orders_completed_all=[]
+		orders_completed = curier.choiced_curier.all().filter(status="Доставлен").order_by("-created_date")
+		for i in orders_completed:
+			print(i.created_date.date())
+			if i.created_date.date()==mydate:
+				orders_completed_all.append(i.pk)
+		orders_completed = orders_completed.filter(pk__in = orders_completed_all)
 	elif day=="yesterday":
-		locale.setlocale(locale.LC_ALL, "ru")
+
 		mydate1=datetime.date.today() - datetime.timedelta(days=1)
 		mydate1=mydate1.strftime("%d %B")
 		print(mydate1)
@@ -140,13 +146,14 @@ def rashet_view(request,day):
 	}
 	return render(request,"curiers/raschet.html",context=ctx)
 def curier_history(request):
-    histories = Changes.objects.all().filter(user=request.user.mycurier)
-    total=0
-    for i in histories:
-    		if i.reason!="Пополнение Админом":
-    				total+=i.summa
-    ctx={
+	histories = Changes.objects.all().filter(user=request.user.mycurier)
+	total=0
+	for i in histories:
+		if i.reason!="Пополнение Админом":
+			total+=i.summa
+			print(i.created_date.date())
+	ctx={
     "history":histories,
     "total":total,
     }
-    return render(request,"curiers/history.html",context=ctx)
+	return render(request,"curiers/history.html",context=ctx)

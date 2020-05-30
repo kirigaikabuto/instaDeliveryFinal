@@ -7,10 +7,9 @@
 <nav class="raschet_kur" >
 <ul >
     <li><a href="{% url 'curier_rashet' day='today'%}">Сегодня</a></li>
-    <li><a href="{% url 'curier_rashet' day='yesterday'%}">Вчера</a></li>
-    <li ><a href="{% url 'curier_rashet' day='all'%}">Все заказы</a></li>
+    <li ><a href="{% url 'curier_rashet' day='all'%}">Все</a></li>
    
-    <li><a href="#">Другие дни</a>
+    <li><a href="#">Дни</a>
     <ul>
     {%for i in alldays%}
     <li ><a href="{% url 'curier_rashet' day=i%}">{{i}}</a></li>

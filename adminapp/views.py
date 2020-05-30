@@ -38,7 +38,7 @@ def balance_add_form_action(request):
     return redirect("curiers")
 def orders_all(request):
     orders = None
-    locale.setlocale(locale.LC_ALL, "ru")
+
     if request.method == "POST":
         value = request.POST.get("search")
         field = request.POST.get("parameter")
@@ -59,7 +59,6 @@ def orders_all(request):
     return render(request, "adminapp/orders.html", context=ctx)
 def orders_today(request):
     orders=None
-    locale.setlocale(locale.LC_ALL, "ru")
     if request.method=="POST":
         value = request.POST.get("search")
         field = request.POST.get("parameter")
@@ -70,9 +69,14 @@ def orders_today(request):
         elif field=="to_date":
             orders=TestOrder.objects.filter(to_date__contains=value)
     else:
-        mydate= datetime.date.today().strftime("%d %B")
+        mydate= datetime.date.today()
+        all_orders = TestOrder.objects.all()
+        needed_orders=[]
+        for i in all_orders:
+            if i.created_date.date()==mydate:
+                needed_orders.append(i.pk)
         print(mydate)
-        orders = TestOrder.objects.filter(to_date=mydate)
+        orders = TestOrder.objects.filter(pk__in=needed_orders)
     fields=[field.name for field in TestOrder._meta.get_fields()]
 
     ctx={
