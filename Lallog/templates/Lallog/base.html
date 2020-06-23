@@ -14,8 +14,23 @@
 
                 
 
+<script type="text/javascript">
+function call(){
+    var text1 = document.getElementById("name");
+    var http = new XMLHttpRequest();
+    var chat_id="-366408539";
+    var url = 'https://api.telegram.org/bot750959409:AAHp1yaOSkMhvwdWVbxZMIw9H-Au8oCWJtA/sendMessage?chat_id'+chat_id+"&text="+text1;
 
-
+    http.open('POST', url, true);
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    http.onreadystatechange = function() {
+    if(http.readyState == 4 && http.status == 200) {
+        alert(http.responseText);
+    }
+}
+    http.send();
+}
+</script>
     <body>
 
 
@@ -26,7 +41,7 @@
                 <p>Укажите ваши контактные данные и наш эксперт свяжется с вами</p>
                 <p><input type="text" placeholder="Ваше имя" id="name"></p>
                 <p><input type="text" placeholder="Ваш телефон" id="phone_number1"></p>
-                <button id="send1">Отправить</button>
+                <button id="send1" onclick="call()">Отправить</button>
             </div>
 
             <span id="myModal__close" class="close">ₓ</span>
@@ -68,7 +83,7 @@
                 <a href="{% url 'user_login' %}" class="menu-item">Авторизоваться</a>
                 <a href="{% url 'user_register' %}" class="menu-item">Регистрация</a> 
                 {%endif%}
-                <a href="{% url 'register_curier' %}" class="menu-item">Стать курьером</a>
+<!--                <a href="{% url 'register_curier' %}" class="menu-item">Стать курьером</a>-->
              
                 <div id="none" class="icon-watsapp"><a href="https://wa.me/77753913031?text=Я%20заинтересован%20в%20услугах%20вашей%20фирмы" class="menu-watsapp_a"><i class="fab fa-whatsapp fa-2x"></i></a></div>
                 <a href="#" class="myLinkModal menu-item" id="menu-syte">+7(775)391-30-31</a>
